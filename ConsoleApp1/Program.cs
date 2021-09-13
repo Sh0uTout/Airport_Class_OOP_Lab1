@@ -112,7 +112,7 @@ namespace ConsoleApp1
 
             public void DeletePlane(Plane plane)
             {
-                _placesForPlanesLeft++;
+                        _placesForPlanesLeft++;
                         _currentPassengers -= plane.GetPassengersLoad();
                         _currentPlanes--;
                         _planes.Remove(plane);
@@ -128,11 +128,12 @@ namespace ConsoleApp1
 
             public void Info()
             {
-                Console.WriteLine($"Basic info about {Name} Airport:");
+                Console.WriteLine($"\nBasic info about {Name} Airport:");
                 Console.WriteLine($"Airport currently is {Status}.");
                 Console.WriteLine($"Current load of passengers is {_currentPassengers}.");
                 Console.WriteLine($"Parking places for planes left: {_placesForPlanesLeft}.");
                 Console.WriteLine($"Current amount of planes is {_currentPlanes}.");
+                Console.WriteLine("\n");
             }
         }
 
@@ -194,20 +195,19 @@ namespace ConsoleApp1
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-            var airport = new Airport("AP1", "working");
-            //airport.Info();
+            var airport = new Airport();
             var plane1 = new Plane();
-          //  airport.AddPlane(plane1);
-            var plane2 = new Plane("SN12134", 2);
-           // airport.AddPlane(plane2);
-           // airport.DeletePlane(plane2);
             airport.Info();
-            plane1.LandInAirport(airport);
+            airport.AddPlane(plane1);
             airport.Info();
-            
-            
-            
+            var plane2 = new Plane();
+            plane2.LandInAirport(airport);
+            airport.Info();
+            airport.DeletePlane(plane2);
+            airport.Info();
+
+
+
         }
     }
 }
