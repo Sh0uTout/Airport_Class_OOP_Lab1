@@ -16,15 +16,15 @@ namespace ConsoleApp1
 
             public Airport()
             {
-                Console.WriteLine("Enter name of the airport:");
+                Console.WriteLine("Enter name of the airport: ");
                 Name = Console.ReadLine();
-                Console.WriteLine("Enter current working status of the airport: (working / closed)");
+                Console.WriteLine("Enter current working status of the airport: (working / closed) ");
                 Status = Console.ReadLine();
             }
 
             ~Airport()
             {
-                Console.WriteLine($"Airport {Name} was demolished.");
+                Console.WriteLine($"Airport {Name} was demolished. ");
             }
 
             public void SetCurrentPassengers(uint currentPassengers)
@@ -49,8 +49,8 @@ namespace ConsoleApp1
 
             public Airport(string name, string status)
             {
-                this.Name = name;
-                this.Status = status;
+                Name = name;
+                Status = status;
             }
 
             public static bool operator ==(Airport airport1, Airport airport2)
@@ -103,6 +103,7 @@ namespace ConsoleApp1
                 if (_placesForPlanesLeft > 0 && CheckSerialNumber(plane))
                 {
                     _planes.Add(plane);
+                    _currentPlanes++;
                     _currentPassengers += plane.GetPassengersLoad();
                     _placesForPlanesLeft--;
                 }
@@ -111,13 +112,10 @@ namespace ConsoleApp1
 
             public void DeletePlane(Plane plane)
             {
-                foreach (var vPlane in _planes)
-                    if (plane.GetSerialNumber() == vPlane.GetSerialNumber())
-                    {
-                        _placesForPlanesLeft++;
+                _placesForPlanesLeft++;
                         _currentPassengers -= plane.GetPassengersLoad();
-                        _planes.Remove(vPlane);
-                    }
+                        _currentPlanes--;
+                        _planes.Remove(plane);
             }
 
             public bool CheckSerialNumber(Plane chkPlane)
@@ -134,7 +132,7 @@ namespace ConsoleApp1
                 Console.WriteLine($"Airport currently is {Status}.");
                 Console.WriteLine($"Current load of passengers is {_currentPassengers}.");
                 Console.WriteLine($"Parking places for planes left: {_placesForPlanesLeft}.");
-                Console.WriteLine($"Current amount of planes is {_currentPassengers}.");
+                Console.WriteLine($"Current amount of planes is {_currentPlanes}.");
             }
         }
 
@@ -197,6 +195,18 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
+            var airport = new Airport("AP1", "working");
+            //airport.Info();
+            var plane1 = new Plane("SN1213", 1);
+            airport.AddPlane(plane1);
+            var plane2 = new Plane("SN12134", 2);
+            airport.AddPlane(plane2);
+            airport.DeletePlane(plane2);
+            airport.Info();
+            
+            
+            
+            
         }
     }
 }
