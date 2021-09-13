@@ -197,13 +197,14 @@ namespace ConsoleApp1
             Console.WriteLine("Hello World!");
             var airport = new Airport("AP1", "working");
             //airport.Info();
-            var plane1 = new Plane("SN1213", 1);
-            airport.AddPlane(plane1);
+            var plane1 = new Plane();
+          //  airport.AddPlane(plane1);
             var plane2 = new Plane("SN12134", 2);
-            airport.AddPlane(plane2);
-            airport.DeletePlane(plane2);
+           // airport.AddPlane(plane2);
+           // airport.DeletePlane(plane2);
             airport.Info();
-            
+            plane1.LandInAirport(airport);
+            airport.Info();
             
             
             
