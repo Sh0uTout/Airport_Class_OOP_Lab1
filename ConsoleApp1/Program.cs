@@ -7,8 +7,8 @@ namespace ConsoleApp1
     {
         class Airport
         {
-            public string name;
-            public string status;
+            public string name { get; set; }
+            public string status { get; set; }
             private uint _currentPassengers;
             private uint _currentPlanes = 0;
             private List<Plane> _planes = new List<Plane>();
@@ -20,6 +20,26 @@ namespace ConsoleApp1
                 name = Console.ReadLine();
                 Console.WriteLine("Enter current working status of the airport: (working / closed)");
                 status = Console.ReadLine();
+            }
+
+            public void SetCurrentPassengers(uint currentPassengers)
+            {
+                _currentPassengers = currentPassengers;
+            }
+
+            public void SetCurrentPlanes(uint currentPlanes)
+            {
+                _currentPlanes = currentPlanes;
+            }
+
+            public void SetPlanes(List<Plane> planes)
+            {
+                _planes = planes;
+            }
+
+            public void SetPlacesForPlanesLeft(uint placesForPlanesLeft)
+            {
+                _placesForPlanesLeft = placesForPlanesLeft;
             }
 
             public Airport(string name, string status)
