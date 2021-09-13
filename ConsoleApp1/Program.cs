@@ -202,8 +202,11 @@ namespace ConsoleApp1
             airport.Info();
             var plane2 = new Plane();
             plane2.LandInAirport(airport);
+            var plane3 = new Plane("SN3", 300);
+            airport.AddPlane(plane3);
             airport.Info();
-            airport.DeletePlane(plane2);
+            var plane4 = new Plane();
+            airport.AddPlane(plane4);
             airport.Info();
 
 
