@@ -7,8 +7,8 @@ namespace ConsoleApp1
     {
         class Airport
         {
-            public string name { get; set; }
-            public string status { get; set; }
+            public string Name { get; set; }
+            public string Status { get; set; }
             private uint _currentPassengers;
             private uint _currentPlanes = 0;
             private List<Plane> _planes = new List<Plane>();
@@ -17,9 +17,14 @@ namespace ConsoleApp1
             public Airport()
             {
                 Console.WriteLine("Enter name of the airport:");
-                name = Console.ReadLine();
+                Name = Console.ReadLine();
                 Console.WriteLine("Enter current working status of the airport: (working / closed)");
-                status = Console.ReadLine();
+                Status = Console.ReadLine();
+            }
+
+            ~Airport()
+            {
+                Console.WriteLine($"Airport {Name} was demolished.");
             }
 
             public void SetCurrentPassengers(uint currentPassengers)
@@ -44,14 +49,14 @@ namespace ConsoleApp1
 
             public Airport(string name, string status)
             {
-                this.name = name;
-                this.status = status;
+                this.Name = name;
+                this.Status = status;
             }
 
             public static bool operator ==(Airport airport1, Airport airport2)
             {
-                if ((airport1 != null && airport2 != null) && airport1.name == airport2.name)
-                    if (airport1.status == airport2.status)
+                if ((airport1 != null && airport2 != null) && airport1.Name == airport2.Name)
+                    if (airport1.Status == airport2.Status)
                         if (airport1.GetCurrentPassengers() == airport2.GetCurrentPassengers())
                             if (airport1.GetCurrentPlanes() == airport2.GetCurrentPlanes())
                                 if (airport1.GetCurrenListOfPlanes() == airport2.GetCurrenListOfPlanes())
@@ -63,8 +68,8 @@ namespace ConsoleApp1
             public static bool operator !=(Airport airport1, Airport airport2)
             {
                 if ((airport1 != null && airport2 != null) && 
-                    ((airport1.name != airport2.name) || 
-                     (airport1.status != airport2.status) || 
+                    ((airport1.Name != airport2.Name) || 
+                     (airport1.Status != airport2.Status) || 
                      (airport1.GetCurrentPassengers() != airport2.GetCurrentPassengers()) || 
                      (airport1.GetCurrentPlanes() != airport2.GetCurrentPlanes()) || 
                      (airport1.GetCurrenListOfPlanes() != airport2.GetCurrenListOfPlanes()) || 
@@ -125,8 +130,8 @@ namespace ConsoleApp1
 
             public void Info()
             {
-                Console.WriteLine($"Basic info about {name} Airport:");
-                Console.WriteLine($"Airport currently is {status}.");
+                Console.WriteLine($"Basic info about {Name} Airport:");
+                Console.WriteLine($"Airport currently is {Status}.");
                 Console.WriteLine($"Current load of passengers is {_currentPassengers}.");
                 Console.WriteLine($"Parking places for planes left: {_placesForPlanesLeft}.");
                 Console.WriteLine($"Current amount of planes is {_currentPassengers}.");
@@ -152,6 +157,11 @@ namespace ConsoleApp1
             {
                 _serialNumber = serialNumber;
                 _loadOfPassengers = loadOfPassengers;
+            }
+
+            ~Plane()
+            {
+                Console.WriteLine($"Plane {_serialNumber} flew away.");
             }
 
             public Plane()
