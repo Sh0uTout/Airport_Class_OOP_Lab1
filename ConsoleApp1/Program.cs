@@ -9,10 +9,10 @@ namespace ConsoleApp1
         {
             public string Name { get; set; }
             public string Status { get; set; }
-            private uint _currentPassengers;
-            private uint _currentPlanes = 0;
-            private List<Plane> _planes = new List<Plane>();
-            private uint _placesForPlanesLeft = 100;
+            private uint currentPassengers;
+            private uint currentPlanes = 0;
+            private List<Plane> planes = new List<Plane>();
+            private uint placesForPlanesLeft = 100;
 
             public Airport()
             {
@@ -29,22 +29,22 @@ namespace ConsoleApp1
 
             public void SetCurrentPassengers(uint currentPassengers)
             {
-                _currentPassengers = currentPassengers;
+                this.currentPassengers = currentPassengers;
             }
 
             public void SetCurrentPlanes(uint currentPlanes)
             {
-                _currentPlanes = currentPlanes;
+                this.currentPlanes = currentPlanes;
             }
 
             public void SetPlanes(List<Plane> planes)
             {
-                _planes = planes;
+                this.planes = planes;
             }
 
             public void SetPlacesForPlanesLeft(uint placesForPlanesLeft)
             {
-                _placesForPlanesLeft = placesForPlanesLeft;
+                this.placesForPlanesLeft = placesForPlanesLeft;
             }
 
             public Airport(string name, string status)
@@ -80,47 +80,47 @@ namespace ConsoleApp1
 
             public uint GetCurrentPassengers()
             {
-                return _currentPassengers;
+                return currentPassengers;
             }
 
             public uint GetCurrentPlanes()
             {
-                return _currentPlanes;
+                return currentPlanes;
             }
 
             public List<Plane> GetCurrenListOfPlanes()
             {
-                return _planes;
+                return planes;
             }
 
             public uint GetPlacesForPlanesLeft()
             {
-                return _placesForPlanesLeft;
+                return placesForPlanesLeft;
             }
 
             public void AddPlane(Plane plane)
             {
-                if (_placesForPlanesLeft > 0 && CheckSerialNumber(plane))
+                if (placesForPlanesLeft > 0 && CheckSerialNumber(plane))
                 {
-                    _planes.Add(plane);
-                    _currentPlanes++;
-                    _currentPassengers += plane.GetPassengersLoad();
-                    _placesForPlanesLeft--;
+                    planes.Add(plane);
+                    currentPlanes++;
+                    currentPassengers += plane.GetPassengersLoad();
+                    placesForPlanesLeft--;
                 }
                 else Console.WriteLine("Airport currently is full.");
             }
 
             public void DeletePlane(Plane plane)
             {
-                        _placesForPlanesLeft++;
-                        _currentPassengers -= plane.GetPassengersLoad();
-                        _currentPlanes--;
-                        _planes.Remove(plane);
+                        placesForPlanesLeft++;
+                        currentPassengers -= plane.GetPassengersLoad();
+                        currentPlanes--;
+                        planes.Remove(plane);
             }
 
             public bool CheckSerialNumber(Plane chkPlane)
             {
-                foreach (var plane in _planes)
+                foreach (var plane in planes)
                     if (chkPlane.GetSerialNumber() == plane.GetSerialNumber())
                         return false;
                 return true;
@@ -130,59 +130,59 @@ namespace ConsoleApp1
             {
                 Console.WriteLine($"\nBasic info about {Name} Airport:");
                 Console.WriteLine($"Airport currently is {Status}.");
-                Console.WriteLine($"Current load of passengers is {_currentPassengers}.");
-                Console.WriteLine($"Parking places for planes left: {_placesForPlanesLeft}.");
-                Console.WriteLine($"Current amount of planes is {_currentPlanes}.");
+                Console.WriteLine($"Current load of passengers is {currentPassengers}.");
+                Console.WriteLine($"Parking places for planes left: {placesForPlanesLeft}.");
+                Console.WriteLine($"Current amount of planes is {currentPlanes}.");
                 Console.WriteLine("\n");
             }
         }
 
         class Plane
         {
-            private string _serialNumber;
-            private uint _loadOfPassengers;
+            private string serialNumber;
+            private uint loadOfPassengers;
 
             public uint GetPassengersLoad()
             {
-                return _loadOfPassengers;
+                return loadOfPassengers;
             }
 
             public string GetSerialNumber()
             {
-                return _serialNumber;
+                return serialNumber;
             }
 
             public Plane(string serialNumber, uint loadOfPassengers)
             {
-                _serialNumber = serialNumber;
-                _loadOfPassengers = loadOfPassengers;
+               this.serialNumber = serialNumber;
+                this.loadOfPassengers = loadOfPassengers;
             }
 
             ~Plane()
             {
-                Console.WriteLine($"Plane {_serialNumber} flew away.");
+                Console.WriteLine($"Plane {serialNumber} flew away.");
             }
 
             public Plane()
             {
                 Console.WriteLine("Enter serial number of the plane: ");
-                _serialNumber = Console.ReadLine();
+                serialNumber = Console.ReadLine();
                 Console.WriteLine("Enter current load of passengers on this plane: ");
-                if (uint.TryParse(Console.ReadLine(), out _loadOfPassengers)) ;
+                if (uint.TryParse(Console.ReadLine(), out loadOfPassengers)) ;
                 else throw new Exception("Wrong number, write number in diapason[0; 350].");
             }
 
             public static bool operator ==(Plane plane1, Plane plane2)
             {
-                if ((plane1 != null && plane2 != null) && plane1._serialNumber == plane2._serialNumber)
-                    if (plane1._loadOfPassengers == plane2._loadOfPassengers)
+                if ((plane1 != null && plane2 != null) && plane1.serialNumber == plane2.serialNumber)
+                    if (plane1.loadOfPassengers == plane2.loadOfPassengers)
                         return true;
                 return false;
             }
 
             public static bool operator !=(Plane plane1, Plane plane2)
             {
-                if ((plane1 != null && plane2 != null) && ((plane1._serialNumber != plane2._serialNumber) || (plane1._loadOfPassengers == plane2._loadOfPassengers)))
+                if ((plane1 != null && plane2 != null) && ((plane1.serialNumber != plane2.serialNumber) || (plane1.loadOfPassengers == plane2.loadOfPassengers)))
                     return true;
                 return false;
             }
